@@ -1,103 +1,87 @@
-import Image from "next/image";
+// pages/carta-para-ti.js
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
 
-export default function Home() {
+export default function CartaRomantica() {
+  const [mostrarContenido, setMostrarContenido] = useState(false);
+  const [corazonLatido, setCorazonLatido] = useState(false);
+  const [mensajeVisible, setMensajeVisible] = useState(false);
+
+  useEffect(() => {
+    // Animación de entrada después de cargar
+    const timer = setTimeout(() => {
+      setMostrarContenido(true);
+    }, 500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
+  const revelarMensaje = () => {
+    setMensajeVisible(true);
+    setCorazonLatido(true);
+    setTimeout(() => setCorazonLatido(false), 1000);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-red-50 flex items-center justify-center p-4">
+      <Head>
+        <title>Una carta para ti</title>
+        <meta name="description" content="Una carta especial para alguien especial" />
+      </Head>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className={`relative w-full max-w-2xl transition-all duration-1000 ${mostrarContenido ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        {/* Sobre de carta */}
+        <div className="bg-white rounded-lg shadow-xl overflow-hidden border-2 border-pink-200">
+          {/* Encabezado con corazón */}
+          <div className="bg-gradient-to-r from-pink-500 to-red-400 p-6 text-center relative">
+            <h1 className="text-3xl md:text-4xl font-serif text-white">Para Mi Amor</h1>
+            <button 
+              onClick={revelarMensaje}
+              className={`absolute top-4 right-4 text-white text-4xl transition-transform ${corazonLatido ? 'scale-125' : 'scale-100'}`}
+            >
+              ❤️
+            </button>
+          </div>
+          
+          {/* Contenido de la carta */}
+          <div className="p-8 font-serif text-gray-800">
+            <div className="text-sm text-gray-500 mb-2">Fecha: {new Date().toLocaleDateString()}</div>
+            
+            <p className="mb-4 leading-relaxed">
+              Mi querida Celi,
+            </p>
+            
+            <p className="mb-4 leading-relaxed">
+              Hoy me desperté pensando en ti, como cada mañana. En tu sonrisa, en tu mirada, 
+              en esa forma única que tienes de iluminar mis días incluso cuando todo parece gris.
+            </p>
+            
+            <p className="mb-4 leading-relaxed">
+              Quería escribirte esta carta para recordarte lo mucho que significas para mí. 
+              Eres mi confidente, mi mejor amigo/a, mi compañero/a de aventuras y el amor de mi vida.
+            </p>
+            
+            {/* Mensaje secreto que se revela al hacer clic */}
+            {mensajeVisible && (
+              <div className="mt-6 p-4 bg-pink-50 border-l-4 border-pink-400 rounded-r transition-all duration-700">
+                <p className="text-pink-800 italic">
+                  Y hay algo más que quería decirte... Eres la persona más maravillosa 
+                  que he conocido y cada día a tu lado es un regalo. Te amo más de lo que las palabras pueden expresar.
+                </p>
+              </div>
+            )}
+            
+            <div className="mt-8 text-right">
+              <p className="font-bold">Con todo mi amor,</p>
+              <p>Ubi</p>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        
+        {/* Elementos decorativos */}
+        <div className="absolute -bottom-8 -left-4 text-6xl text-pink-200 opacity-60">❦</div>
+        <div className="absolute -top-6 -right-4 text-5xl text-red-200 opacity-60">❦</div>
+      </div>
     </div>
   );
 }
