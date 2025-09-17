@@ -60,7 +60,7 @@ export default function CartaRomantica() {
             
             <p className="mb-4 leading-relaxed">
               Quería escribirte esta carta para recordarte lo mucho que significas para mí. 
-              Eres mi confidente, mi mejor amigo/a, mi compañero/a de aventuras y el amor de mi vida.
+              Eres mi confidente, mi mejor amiga, mi compañera de aventuras y el amor de mi vida.
             </p>
             
             {/* Mensaje secreto que se revela al hacer clic */}
